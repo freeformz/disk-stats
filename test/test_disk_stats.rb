@@ -31,6 +31,10 @@ describe DiskStats::Parser do
       @parser.count.must_equal 10
     end
 
+    it 'should know the devices it has' do
+      @parser.devices.must_equal [:ram0, :loop0, :loop1, :sda1, :sdb, :sdf8, :sdf1, :sde1, :md0, :'dm-0']
+    end
+
     it 'should be enumerable' do
       @parser.is_a? Enumerable
     end
@@ -39,6 +43,10 @@ describe DiskStats::Parser do
       @parser.each do |device|
         device.must_be_instance_of DiskStats::Device
       end
+    end
+
+    it 'should return nil for a disk that does not exist' do
+      @parser[:foozle].must_be_nil
     end
 
     it 'should return a device when indexed by the device name' do

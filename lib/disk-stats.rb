@@ -51,6 +51,10 @@ module DiskStats
       end
     end
 
+    def devices
+      @devices.map { |d| d.name.to_sym }
+    end
+
     def update new_output
       parse! new_output.split("\n")
     end
